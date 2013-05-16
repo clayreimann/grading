@@ -1,0 +1,7 @@
+<%inherit file="../base.html" />
+<h2>Assignments for ${student}</h2>
+<ul>
+  % for assignment in assignments:
+    <li><a href="${student}/${assignment}">${assignment}</a></li>
+  % endfor
+</ul>
