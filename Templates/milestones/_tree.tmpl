@@ -1,0 +1,20 @@
+<%def name="render_milestone(m)">
+  <li data-objId="${m['_id']}">
+    ${m['title']}
+    <a class="add" href="add" title="Add subgoal">[+]</a>
+    <a class="fin" href="complete/${m['_id']}" title="Mark complete">[&#x2713;]</a>
+    <a class="del" href="delete/${m['_id']}" title="Delete goal">[-]</a>
+
+    % if len(m['children']) > 0:
+      <ul>
+        % for c in m['children']:
+          ${render_milestone(c)}
+        % endfor
+      </ul>
+    % endif
+    </li>
+</%def>
+
+% for m in milestones:
+  ${render_milestone(m)}
+% endfor

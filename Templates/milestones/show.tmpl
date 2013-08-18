@@ -1,0 +1,82 @@
+<%page />
+<%inherit file="../base.html" />
+<%block name="title">
+  <title>Milestones | Grading System</title>
+</%block>
+
+<!--
+<div>
+ <p>Path = ${path}</p>
+ <p>Params = ${params}</p>
+</div>
+-->
+
+<div>
+  <form method="POST">
+    <input type="hidden" name="parentId" val="">
+    <input type="text" name="milestoneTitle" placeholder="Add major milestone">
+  </form>
+</div>
+<ul id="milestones">
+  <%include file="_tree.tmpl" />
+</ul>
+<%block name="scripts">
+<script>
+  function setup_links() {
+    $(".add").each(function(idx, ele) {
+      $(this).bind('click', function(evt) {
+        evt.preventDefault();
+        var list = $(this).parent().children("ul"),
+            url = $(this).attr("href"),
+            parent = $(this).parent().data("objid"),
+            li, input;
+        console.log("url: " + url + " parent: " + parent);
+
+        if(list.length == 0) {
+          list = $(ele).parent().append("<ul></ul>").children("ul").first();
+        }
+        li = $(list).append("<li></li>").children("li").last();
+        input = $(li).append("<input id='subgoal' placeholder='subgoal'>").children("input").first();
+
+        $(input).bind('keydown', function(e) {
+          switch(e.keyCode) {
+            case 13:
+              var title = $("#subgoal").val();
+              $.ajax({
+                url: url,
+                data: {
+                  milestoneTitle: title,
+                  parentId: parent
+                },
+                method: "POST",
+                success: function(data, status, xhr) {
+                  $("#milestones").html(data);
+                  setup_links();
+                }
+              });
+              break;
+            default:
+              //console.log(e.keyCode);
+          }
+        });
+      });
+    });
+    $(".del").each(function(idx, ele) {
+      $(this).bind('click', function(e) {
+        e.preventDefault();
+        var url = $(this).attr("href");
+        $.ajax({
+          url: url,
+          success: function(data, status, xhr) {
+            $("#milestones").html(data);
+            setup_links();
+          }
+        })
+      });
+    });
+  }
+  $(function() {
+    setup_links()
+  });
+</script>
+</%block>

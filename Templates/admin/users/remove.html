@@ -1,0 +1,20 @@
+<%inherit file="../../base.html" />
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>NetId</th>
+      <th>Name</th>
+      <th>Remove?</th>
+    </tr>
+  </thead>
+  <tbody>
+  % for u in users:
+    <tr>
+      <td>${u["NetID"]}</td>
+      <td>${u["FirstName"]} ${u["LastName"]}</td>
+      <td><a class='btn' href='remove/${u["NetID"]}'>Remove User</a></td>
+    </tr>
+  % endfor
+  </tbody>
+</table>

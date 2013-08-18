@@ -1,0 +1,30 @@
+<%inherit file="../../base.html" />
+
+%if error:
+  <div class="error">
+    ${error}
+  </div>
+%endif
+
+<form method="POST">
+
+  <label>NetID</label>
+  <% netID = data["netID"] if "netID" in data else "" %>
+  <input type="text" name="netID" value="${netID}">
+
+  <label>First name</label>
+  <% firstName = data["firstName"] if "firstName" in data else "" %>
+  <input type="text" name="firstName" value="${firstName}">
+
+  <label>Last name</label>
+  <% lastName = data["lastName"] if "lastName" in data else "" %>
+  <input type="text" name="lastName" value="${lastName}">
+
+  <label>Password</label>
+  <input type="password" name="pw">
+
+  <label>Confirm password</label>
+  <input type="password" name="pwConf">
+
+  <input type="submit" value="Go">
+</form>

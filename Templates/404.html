@@ -1,0 +1,11 @@
+<%inherit file="base.html"/>
+
+<pre>
+URI:
+  ${"/"+"/".join(URI)}
+
+Params:
+  %for p in params:
+  ${p}: ${params[p]}
+  %endfor
+</pre>

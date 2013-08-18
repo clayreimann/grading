@@ -1,44 +1,40 @@
 <html>
 <head>
-  <title>${page_title}</title>
+  <%block name="title">
+    <title>Grading System</title>
+  </%block>
+
   <script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
-  <style>
-    body {
-      width: 860px;
-      margin: auto;
-      padding: 30px 0;
-    }
-    .nav {
-      list-style: none;
-    }
-    .nav li {
-      display: inline-block;
-      padding: 5px 20px;
-      border: 1px gray solid;
-    }
-    pre, textarea {
-      background: #EEE;
-      border: 1px solid #666;
-      border-radius: 8px;
-      padding: 10px;
-      min-height: 200px;
-      max-height: 500px;
-      width: 100%;
-      overflow: auto;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+  <link rel="icon" type="image/ico" href="/assets/img/favicon.ico">
 </head>
 <body>
+  <div class="container">
+    <header>
+      <ul class="nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/grades/">Grade Assignments</a></li>
+        <li><a href="/admin/">Admin Stuff</a></li>
+        % if _logged_in:
+          <li>Logged in as: ${_user['FirstName']}</li>
+          <li><a href="/auth/logout/">Log out</a></li>
+        % else:
+          <li><a href="/auth/login/">Log in</a></li>
+        % endif
+      </ul>
+    </header>
 
-  <ul class="nav">
-    <li><a href="/">Home</a></li>
-    <li><a href="/grades">Grade Assignments</a></li>
-    <li><a href="/admin">Admin Stuff</a></li>
-  </ul>
+    <div class="content">
+      ${next.body()}
+    </div>
 
-  <div class="content">
-    ${next.body()}
+    <footer>
+      <a href="/milestones/">Development Milestones</a>
+    </footer>
   </div>
-
 </body>
+
+<%block name="scripts">
+</%block>
+
 </html>

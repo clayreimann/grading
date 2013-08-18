@@ -1,0 +1,10 @@
+<%inherit file="../../base.html"/>
+
+<h2>Are you sure you want to delete ${user["FirstName"]} ${user["LastName"]}</h2>
+<h4>This action is irreversible</h4>
+<div>
+  <a class="btn btn-warn" href="?confirm=True">Delete this user</a>
+</div>
+<div>
+  <a class="btn" href="/admin/users/remove">Cancel - go back</a>
+</div>

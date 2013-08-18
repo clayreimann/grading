@@ -1,0 +1,18 @@
+<%inherit file="../../base.html" />
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>NetId</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+  % for u in users:
+    <tr>
+      <td><a href='show/${u["NetID"]}'>${u["NetID"]}</a></td>
+      <td>${u["FirstName"]} ${u["LastName"]}</td>
+    </tr>
+  % endfor
+  </tbody>
+</table>

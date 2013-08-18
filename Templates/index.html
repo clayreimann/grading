@@ -1,2 +1,17 @@
 <%inherit file="base.html" />
-Dashboard of site.
+<%block name="title">
+  <title>Dashboard</title>
+</%block>
+
+<p>Dashboard of site.</p>
+<pre>
+Base:    ${_request.base}
+Req:     ${_request.path_info} (${_request.method})
+Cookie:  ${_request.cookie}
+Headers:
+% for h in _request.headers:
+  * ${h}
+    = ${_request.headers[h]}
+% endfor
+
+</pre>

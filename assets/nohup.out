@@ -1,0 +1,39 @@
+[Listen warning]:
+  Missing dependency 'rb-inotify' (version '~> 0.9')!
+  Please run the following to satisfy the dependency:
+    gem install --version '~> 0.9' rb-inotify
+  
+  For a better performance, it's recommended that you satisfy the missing dependency.
+  Listen will be polling changes. Learn more at https://github.com/guard/listen#polling-fallback.
+
+>>> Sass is watching for changes. Press Ctrl-C to stop.
+[Listen warning]:
+  Missing dependency 'rb-inotify' (version '~> 0.9')!
+  Please run the following to satisfy the dependency:
+    gem install --version '~> 0.9' rb-inotify
+  
+  For a better performance, it's recommended that you satisfy the missing dependency.
+  Listen will be polling changes. Learn more at https://github.com/guard/listen#polling-fallback.
+
+>>> Sass is watching for changes. Press Ctrl-C to stop.
+>>> Change detected to: /var/www/gradingsystem.us/assets/scss/main.scss
+  overwrite css/main.css
+>>> Change detected to: /var/www/gradingsystem.us/assets/scss/main.scss
+  overwrite css/main.css
+>>> Change detected to: /var/www/gradingsystem.us/assets/scss/main.scss
+  overwrite css/main.css
+>>> Change detected to: /var/www/gradingsystem.us/assets/scss/main.scss
+  overwrite css/main.css
+>>> Change detected to: /var/www/gradingsystem.us/assets/scss/main.scss
+  overwrite css/main.css
+>>> Change detected to: /var/www/gradingsystem.us/assets/scss/main.scss
+  overwrite css/main.css
+>>> Change detected to: /var/www/gradingsystem.us/assets/scss/main.scss
+  overwrite css/main.css
+>>> Change detected to: /var/www/gradingsystem.us/assets/scss/main.scss
+  overwrite css/main.css
+>>> Change detected to: /var/www/gradingsystem.us/assets/scss/main.scss
+  overwrite css/main.css
+>>> Change detected to: /var/www/gradingsystem.us/assets/scss/main.scss
+  overwrite css/main.css
+>>> Deleted template detected: /var/www/gradingsystem.us/assets/scss/main.scss

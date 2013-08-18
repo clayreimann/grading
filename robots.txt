@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /grade/
+Disallow: /milestones/
+Disallow: /admin/

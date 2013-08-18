@@ -1,0 +1,11 @@
+<%inherit file="../base.html" />
+<%block name="title">
+  <title>${page_title}</title>
+</%block>
+
+<h2>Sections</h2>
+<ul>
+  % for section in sections:
+    <li><a href="${section}">Section ${int(section.strip("Section"))}</a></li>
+  % endfor
+</ul>

@@ -1,0 +1,25 @@
+<%inherit file="../base.html" />
+<%block name="title">
+  <title>${page_title}</title>
+</%block>
+
+<h2>${page_title}</h2>
+<pre>
+${script}
+</pre>
+<pre id="results">
+</pre>
+<button id="run">Run</button>
+
+<script>
+  $(function() {
+    $("#run").bind('click', function() {
+      $.ajax({
+        url: '/grades/results?section=${section}&student=${student}&assignment=${assignment}',
+        success: function(data, status, xhr) {
+          $("#results").html(data);
+        }
+      });
+    })
+  })
+</script>
