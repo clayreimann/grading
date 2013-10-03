@@ -1,0 +1,61 @@
+<%inherit file="../../base.html"/>
+
+<h2>New Semester</h2>
+
+${parent.listErrors(errors)}
+
+<form method="POST" class="form">
+  <label>Semester Name:</label>
+  <select id="sem">
+    <option>Spring</option>
+    <option>Summer</option>
+    <option>Fall</option>
+  </select>
+  <select id="year">
+    <option>13</option>
+    <option>14</option>
+    <option>15</option>
+    <option>16</option>
+  </select>
+  <% name = params["name"] if "name" in params else "" %>
+  <input type="text" name="name" value="${name}" disabled>
+  <input type="hidden" name="name">
+  <input type="hidden" name="crs_ord" value="">
+  <label>Course</label>
+  <select name="course">
+    <option></option>
+    %for c in courses:
+      <% sel = "selected" if ("course" in params and params["course"] == c["ID"]) else "" %>
+      <option value="${c["ID"]}" ${sel}>${c["CourseNumber"]}</option>
+    %endfor
+  </select>
+  <input type="submit">
+</form>
+
+<script>
+$(function() {
+  var sem = "Spring", year = "13", semOrd;
+  function updateName() {
+    $('input[name=name]').val(sem + " " + year);
+    $('input[name=crs_ord]').val(year + semOrd);
+  }
+
+  $("#sem").on('change', function() {
+    sem = this.value;
+    if(sem === "Spring") {
+      semOrd = 0;
+    } else if(sem === "Summer") {
+      semOrd = 1;
+    } else if(sem === "Fall") {
+      semOrd = 2;
+    }
+    updateName();
+  });
+  $("#year").on('change', function() {
+    year = this.value;
+    updateName();
+  });
+
+  $("#sem").change();
+});
+</script>

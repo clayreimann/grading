@@ -7,45 +7,63 @@ import cherrypy
 from os import path
 
 from .modules import auth
-from mako.template import Template
 from mako.lookup   import TemplateLookup
 
 # web app classes
+from .modules.base import Base
 from .modules.grade import Grade
 from .modules.admin import Admin
 from .modules.auth  import AuthController
-from .modules.milestones import Milestones
+# from .modules.milestones import Milestones
 
-class GradingApplication:
+class GradingApplication(Base):
   """This is the main Application class."""
 
-  def __init__(self):
-    self.configPath = path.join(path.dirname(__file__), 'site.conf')
-    self.lookup = TemplateLookup(directories=['/var/www/gradingsystem_us/Templates'])
+  def __init__(self, base, tmpl_lookup):
+    super(GradingApplication, self).__init__(tmpl_lookup)
+    self.configPath = path.join(base, 'site.conf')
 
-    self.grades = Grade(self.lookup)
+    self.grades = Grade(self.tmpl_lookup)
+    self.admin  = Admin(self.tmpl_lookup)
+    self.auth   = AuthController(self.tmpl_lookup)
 
-    self.admin  = Admin(self.lookup)
-
-    self.auth   = AuthController(self.lookup)
-
-    self.milestones = Milestones(self.lookup)
 
   @cherrypy.expose
   def index(self):
-    u = auth.current_user()
-    l = False if u is None else True
-    t = self.lookup.get_template('index.html')
-    r = cherrypy.request
-    return t.render(_logged_in = l, _user = u, _request=r)
+    return self.render('index.html', page_title="Home",
+                    _user=auth.current_user(),
+                    _request=cherrypy.request,
+                    _session=cherrypy.session)
+
+  @cherrypy.expose
+  def request(self, *uri, **params):
+    return self.render('request.html', page_title="Request",
+                    _user=auth.current_user(),
+                    _request=cherrypy.request,
+                    _session=cherrypy.session,
+                    uri=uri, params=params)
+
+  @cherrypy.expose
+  def profile(self):
+    """
+      profile shows the user's profile
+    """
+    return self.render('profile.html', page_title="My Profile",
+                    _user=auth.current_user(),
+                    _request=cherrypy.request,
+                    _session=cherrypy.session)
 
   @cherrypy.expose
   def default(self, *uri, **params):
-    u = auth.current_user()
-    l = False if u is None else True
-    t = self.lookup.get_template('404.html')
-    return t.render(_logged_in = l, _user = u, URI=uri, params=params)
+    return self.render('404.html', page_title="Page Not Found",
+                    _user=auth.current_user(),
+                    _request=cherrypy.request,
+                    _session=cherrypy.session,
+                    URI=uri, params=params)
 
-grades = GradingApplication()
+
+base = path.dirname(__file__)
+tl = TemplateLookup(directories=[path.join(base, 'Templates')])
+grades = GradingApplication(base, tl)
 grade_app = cherrypy.Application(grades, config=grades.configPath)
 grade_app.toolboxes['auth'] = auth.auth_toolbox

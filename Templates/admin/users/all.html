@@ -1,10 +1,15 @@
 <%inherit file="../../base.html" />
 
+<div class="nav" style="text-align:right;">
+  <a href="add" >New User</a> | <a href="bulk" >Bulk Add</a>
+</div>
+
 <table class="table">
   <thead>
     <tr>
       <th>NetId</th>
       <th>Name</th>
+      <th>Delete?</th>
     </tr>
   </thead>
   <tbody>
@@ -12,6 +17,7 @@
     <tr>
       <td><a href='show/${u["NetID"]}'>${u["NetID"]}</a></td>
       <td>${u["FirstName"]} ${u["LastName"]}</td>
+      <td><a href="remove/${u["NetID"]}" class="delete">Delete</a></td>
     </tr>
   % endfor
   </tbody>

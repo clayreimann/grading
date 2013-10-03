@@ -1,0 +1,277 @@
+@import "vars.less";
+
+.left {
+  @media (min-width: @width-mobile) {
+    float: left;
+  }
+}
+.right {
+  @media (min-width: @width-mobile) {
+    float: right;
+  }
+}
+.center {
+  .centered();
+}
+
+.hide-mobile {
+  @media (max-width: @width-mobile) {
+    display: none;
+  }
+}
+
+.hide-desktop {
+  @media (min-width: @width-desktop) {
+    display: none;
+  }
+}
+
+.nav {
+  padding-left: @none;
+  margin: @none;
+  list-style: none;
+
+  a {
+    .nav-link(@brand-primary);
+  }
+}
+.container {
+  .centered();
+  width: 820px;
+  @media (max-width: @width-tablet) {
+    width: 80%;
+  }
+  @media (max-width: @width-mobile) {
+    width: 95%;
+  }
+}
+
+.mono {
+  font-family: @font-family-monospace;
+}
+
+body {
+  margin: @none;
+  padding: @none;
+  font-family: @font-family-sans-serif;
+  font-size: @font-size-base;
+  line-height: @line-height-computed;
+
+  .content {
+    padding: 10px 0;
+    min-height: 30em;
+  }
+}
+
+header {
+  background-color: @msu-green;
+
+  ul.nav {
+    overflow: auto;
+    @media (min-width: @width-mobile) {
+      display: inline-block;
+    }
+
+    li {
+      @media (min-width: @width-mobile) {
+        display: inline-block;
+      }
+
+      a {
+        display: inline-block;
+        padding: 15px 20px;
+        .nav-link(#fff);
+
+        @media (max-width: @width-tablet) {
+          font-size: @font-size-base * 0.8;
+        }
+        @media (max-width: @width-mobile) {
+          width: 90%;
+          padding: 10px 5%;
+        }
+
+        &.active {
+          color: @msu-green;
+          background-color: white;
+
+          &:hover {
+            color: @msu-green;
+            background-color: white;
+          }
+        }
+
+        &:hover {
+          color: white;
+          background-color: darken(@msu-green, 2%);
+        }
+      }
+    }
+  }
+}
+
+footer {
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid @gray-dark;
+}
+
+blockquote {
+  border-left: 5px rgba(230, 230, 230, 0.5) solid;
+  padding-left: 10px;
+}
+
+table.table {
+  width: 90%;
+  padding-top: 10px;
+  margin: auto;
+  border-collapse: collapse;
+
+  &.table-condensed {
+    font-size: @font-size-small;
+  }
+
+  &.table-wide {
+    width: 100%;
+  }
+
+  thead {
+    tr th {
+      text-align: left;
+      border-bottom: 1px black dotted;
+    }
+  }
+
+  tbody {
+    td {
+      padding: 10px 4px;
+    }
+    tr:nth-child(even) {
+      background-color: #dfdfdf;
+    }
+  }
+}
+
+div.well {
+  padding: 25px;
+  background-color: lighten(#000, 90%);
+  border-radius: @border-radius-large;
+}
+
+div.error {
+  background: @brand-danger;
+  border-radius: @border-radius;
+
+  ul {
+    padding: 10px;
+    list-style: none;
+  }
+}
+
+div.assignment {
+  border-bottom: 1px dotted @gray-light;
+  margin-bottom: 10px;
+
+  h4 {
+    margin-bottom: 5px;
+  }
+  p {
+    margin: 5px 10px;
+  }
+}
+
+a {
+  color: @brand-primary;
+}
+
+textarea {
+  resize: vertical;
+
+  &.big, &.wide {
+    width: 90%;
+    height: 100px;
+  }
+
+  &.big {
+    height: 200px;
+  }
+}
+
+pre, textarea.console {
+  width: 95%;
+  padding: 10px;
+  background: @gray-lighter;
+
+  border: 1px solid #666;
+  border-radius: @border-radius-large;
+
+  min-height: 200px;
+  max-height: 500px;
+
+  overflow: auto;
+  font-family: @font-family-monospace
+}
+
+code {
+  font-family: @font-family-monospace;
+}
+
+input.error, textarea.error {
+  color: red;
+
+  &:focus {
+    color: inherit;
+    outline-color: @brand-danger;
+  }
+}
+
+.form {
+  width: 90%;
+  .centered();
+  padding-top: 15px;
+  small {
+    display: inline-block;
+    margin-top: -7px;
+    color: lighten(black, 50%);
+  }
+
+  label, input, textarea, select {
+    margin: 5px 0;
+    display: block;
+  }
+
+  textarea {
+    padding: 5px;
+  }
+}
+.form-inline {
+  label, input, textarea, select {
+    padding: 2px 2px;
+    margin-right: 10px
+  }
+}
+.form-login {
+  .centered();
+  width: 400px;
+  margin-top: 20px;
+  padding: 40px;
+  background-color: @gray-lighter;
+  border-radius: @border-radius;
+
+  p {
+    padding-left: @none;
+    padding-right: @none;
+    text-align: center;
+  }
+
+  @media (max-width: @width-mobile) {
+    width: 80%;
+    padding: 5%;
+  }
+}
+
+h1, h2, h3, h4, h5 {
+  small {
+    font-weight: normal;
+    float: right;
+  }
+}

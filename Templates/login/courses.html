@@ -1,0 +1,17 @@
+<%inherit file="../base.html" />
+
+<form class="form form-login">
+  <h2>Select A Course:</h2>
+  % for r in roles:
+    <% role = roles[r] %>
+    <p><a href="?sem=${r}" class="login">${role['Course']} - ${role['Name']} | ${role['Type']}</a></p>
+  % endfor
+</form>
+
+<%block name="scripts">
+<script>
+$(function() {
+  $("a.login").first().focus();
+});
+</script>
+</%block>

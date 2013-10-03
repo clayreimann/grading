@@ -1,35 +1,88 @@
+<%def name="listErrors(errors)">
+%if len(errors) > 0:
+<div class="error">
+  <ul>
+    %for e in errors:
+      %if len(e) > 0:
+        <li>${e}</li>
+      %endif
+    %endfor
+  </ul>
+</div>
+%endif
+</%def>
+
+<% _debug = context.get('_debug', True) %>
+<% _navigation = context.get('_navigation', True) %>
+
+<!doctype html>
 <html>
 <head>
-  <%block name="title">
-    <title>Grading System</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+
+  <title>${page_title}</title>
+
+  <script src="http://code.jquery.com/jquery-2.0.0.min.js"> </script>
+  <script src="/assets/js/common.js"> </script>
+
+  <link rel="stylesheet/less" type="text/css" href="/assets/less/main.less">
+  <link rel="icon" type="image/ico" href="/assets/img/favicon.ico">
+  <%block name="includes">
   </%block>
 
-  <script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
-  <link rel="icon" type="image/ico" href="/assets/img/favicon.ico">
+  <script src="/assets/js/less.js"> </script>
 </head>
 <body>
-  <div class="container">
-    <header>
+  % if _navigation:
+  <header>
+    <div class="container">
       <ul class="nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/grades/">Grade Assignments</a></li>
-        <li><a href="/admin/">Admin Stuff</a></li>
-        % if _logged_in:
-          <li>Logged in as: ${_user['FirstName']}</li>
-          <li><a href="/auth/logout/">Log out</a></li>
-        % else:
-          <li><a href="/auth/login/">Log in</a></li>
-        % endif
-      </ul>
-    </header>
+        <!-- Tuples are of the form (:uri, :controller, :label) -->
+        <%
+          menus = [("/", "", "Home"),
+                    ("/labs", "labs", "Labs"),
+                    ("/projects", "projects", "Projects"),
+                    ("/grades", "grades", "Grades")]
 
+          if _user != None:
+            menus.append(("/admin", "admin", "Admin Menu"))
+        %>
+        %for i in menus:
+          <% kind = "active" if _active == i[1] else "" %>
+          <li><a href="${i[0]}#!watch" class="${kind}">${i[2]}</a>
+        %endfor
+      </ul>
+      <ul class="nav right">
+        <%
+          menus = []
+          if _user != None:
+            menus.append(("/profile", "profile", _user["FullName"]))
+            menus.append(("/auth/logout", "auth", "Logout"))
+          else:
+            menus.append(("/auth/login", "auth", "Login"))
+        %>
+
+        %for i in menus:
+          <% kind = "active" if _active == i[1] else "" %>
+          <li><a href="${i[0]}#!watch" class="${kind}">${i[2]}</a>
+        %endfor
+      </ul>
+    </div>
+  </header>
+  % endif
+  <div class="container">
     <div class="content">
       ${next.body()}
     </div>
 
     <footer>
-      <a href="/milestones/">Development Milestones</a>
+      %if _debug:
+      <p>${_request.path_info} | Active: '${_active}'</p>
+      <p>${_session._data}</p>
+      %endif
+      &copy; Michigan State Univeristy 2013
     </footer>
   </div>
 </body>

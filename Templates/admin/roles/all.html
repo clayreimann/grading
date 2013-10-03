@@ -1,0 +1,23 @@
+<%inherit file="../../base.html" />
+
+<h2>Show class assignments</h2>
+
+<div class="right">
+  <a href="single">Add Single User</a> | <a href="add">Add User Roles</a>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Course</th>
+      <th>Semester</th>
+    </tr>
+  </thead>
+  <tbody>
+    %for s in semesters:
+      <tr>
+        <td>${s["CourseNumber"]}</td>
+        <td><a href="show/${s["ID"]}">${s["Name"]}</a></td>
+      </tr>
+    %endfor
+  </tbody>
+</table>

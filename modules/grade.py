@@ -4,8 +4,9 @@
 import os
 import cherrypy
 from .base import Base
+from .auth import require, has_ta_privileges
 
-FILES_BASE_PATH = "/var/www/sudostudios_com/user/cse231/Handin"
+FILES_BASE_PATH = "/var/Handin"
 
 class Grade(Base):
   """
@@ -17,6 +18,7 @@ class Grade(Base):
     self.sections = sorted([s for s in os.listdir(FILES_BASE_PATH) if s[0] != '.'])
 
   @cherrypy.expose
+  @require(has_ta_privileges())
   def index(self):
     return self.render('grade/grade_index.tmpl',
                       page_title="Grades",

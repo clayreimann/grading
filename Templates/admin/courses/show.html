@@ -1,3 +1,7 @@
 <%inherit file="../../base.html"/>
 
 <h2>${course["CourseNumber"]}</h2>
+
+%for s in course["semesters"]:
+  <h3><a href="../../semesters/show/${s["ID"]}">${s["Name"]}</a></h3>
+%endfor

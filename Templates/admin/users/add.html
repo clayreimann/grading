@@ -1,12 +1,8 @@
 <%inherit file="../../base.html" />
 
-%if error:
-  <div class="error">
-    ${error}
-  </div>
-%endif
+${parent.listErrors(errors)}
 
-<form method="POST">
+<form method="POST" class="form">
 
   <label>NetID</label>
   <% netID = data["netID"] if "netID" in data else "" %>

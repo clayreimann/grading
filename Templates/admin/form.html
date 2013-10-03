@@ -1,0 +1,45 @@
+<%inherit file="../base.html"/>
+
+%if len(params) > 0:
+  <h3>Number of params: ${len(params)}</h3>
+  <pre>
+    %for p in params:
+      %if p == "foo":
+        <%
+          lines = [line for line in params["foo"].split("\n")]
+          cnt = 1
+        %>
+        % for line in range(len(lines)):
+foo[${line}] = ${lines[line]}
+        % endfor
+      %else:
+${p} = ${params[p]}
+      %endif
+    %endfor
+  </pre>
+  <a href="/admin/form">Clear form</a>
+%else:
+  <h2>Multi-line test</h2>
+  <form method="POST" class="form">
+    <label>foo</label>
+    <textarea name="foo"></textarea>
+    <label>bar</label>
+    <input name="bar">
+    <label>bar</label>
+    <input name="bar">
+    <label>bar</label>
+    <input name="bar">
+    <input type="submit">
+  </form>
+
+  <h2>Dictionaries Test</h2>
+  <form method="POST" class="form">
+    <label>bar[2]</label>
+    <input type="text" name="bar[2]">
+    <label>bar[1]</label>
+    <input type="text" name="bar[1]">
+    <label>bar[12]</label>
+    <input type="text" name="bar[12]">
+    <input type="submit">
+  </form>
+%endif

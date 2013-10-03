@@ -1,17 +1,193 @@
 <%inherit file="base.html" />
-<%block name="title">
-  <title>Dashboard</title>
-</%block>
 
-<p>Dashboard of site.</p>
-<pre>
-Base:    ${_request.base}
-Req:     ${_request.path_info} (${_request.method})
-Cookie:  ${_request.cookie}
-Headers:
-% for h in _request.headers:
-  * ${h}
-    = ${_request.headers[h]}
-% endfor
+<div class="well">
+  <h4>Some news thing</h4>
+  <p>There's something cool going on here!!</p>
+</div>
 
-</pre>
+<h2>Class information</h2>
+  <h3>The Law of Coding:</h3>
+  <blockquote>
+    <h4>Thou shalt follow the <a href="#">CSE 231 Coding Standard</a> in all work done for CSE 231.</h4>
+    <p>In this course we will follow a set of conventions regarding how we name variables,
+      funcitons and constants in our programs. Read the <a href="#">naming conventions</a>
+      for more information regarding how these things are named.</p>
+  </blockquote>
+  <h5>Other useful things:</h5>
+  <ul>
+    <li><a href="#">Syllabus</a></li>
+    <li><a href="#">Miscellaneous information</a></li>
+  </ul>
+
+<div class="hide-mobile">
+  <h2>Schedule</h2>
+  <table class="table table-wide table-condensed">
+    <thead>
+      <tr>
+        <th>Week</th>
+        <th>Mon</th>
+        <th>Project</th>
+        <th>Tue</th>
+        <th>Topic</th>
+        <th>Th</th>
+        <th>Topic</th>
+        <th>Text Readings</th>
+    </tr></thead>
+    <tbody>
+    <tr>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>08/28</td>
+      <td>Overview, proj00</td>
+      <td>Chapters 0 &amp; Appendix A</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td></td>
+      <td></td>
+      <td>09/03</td>
+      <td>Beginnings</td>
+      <td>09/05</td>
+      <td>Control: Selection</td>
+      <td>Chapters 1 &amp; 2</td>
+     </tr>
+    <tr>
+      <td>3</td>
+      <td>9/9</td>
+      <td>proj01</td>
+      <td>09/10</td>
+      <td>Control: Repetition</td>
+      <td>09/12</td>
+      <td>More on Control</td>
+      <td>Chapters 2 &amp; 3</td>
+     </tr>
+    <tr>
+      <td>4</td>
+      <td>9/16</td>
+      <td>proj02</td>
+      <td>09/17</td>
+      <td>Intro to Data Structures: Strings</td>
+      <td>09/19</td>
+      <td>More Strings</td>
+      <td>Chapter 4</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>9/23</td>
+      <td>proj03</td>
+      <td>09/24</td>
+      <td>Files &amp; Exceptions</td>
+      <td>09/26</td>
+      <td>Intro to Functions</td>
+      <td>Chapters 5 &amp; 6</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td></td>
+      <td></td>
+      <td>10/01</td>
+      <td><i><b>Exam 1</b></i></td>
+      <td>10/03</td>
+      <td>More on Functions</td>
+      <td>Chapter 6</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>10/7</td>
+      <td>proj04</td>
+      <td>10/08</td>
+      <td>Intro to Lists</td>
+      <td>10/10</td>
+      <td>Lists, tuples &amp; mutability</td>
+      <td>Chapter 7</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>10/14</td>
+      <td>proj05</td>
+      <td>10/15</td>
+      <td>More on Functions</td>
+      <td>10/17</td>
+      <td>Intro to Dictionaries</td>
+      <td>Chapters 8 &amp; 9</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>10/21</td>
+      <td>proj06</td>
+      <td>10/22</td>
+      <td>Dictionaries &amp; Sets</td>
+      <td>10/24</td>
+      <td>Intro to Classes</td>
+      <td>Chapters 9 &amp; 10</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>10/28</td>
+      <td>proj07</td>
+      <td>10/29</td>
+      <td>More Classes</td>
+      <td>10/31</td>
+      <td>More Classes</td>
+      <td>Chapter 11</td>
+    </tr><tr>
+      <td>11</td>
+      <td></td>
+      <td></td>
+      <td>11/05</td>
+      <td><i><b>Exam 2</b></i></td>
+      <td>11/07</td>
+      <td>More Classes &amp; Scope II</td>
+      <td>Chapter 12</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>11/11</td>
+      <td>proj08</td>
+      <td>11/12</td>
+      <td>Intro to Inheritance</td>
+      <td>11/14</td>
+      <td>More on Inheritance</td>
+      <td>Chapter 12</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>11/18</td>
+      <td>proj09</td>
+      <td>11/19</td>
+      <td>Overloading</td>
+      <td>11/21</td>
+      <td>More on Overloading</td>
+      <td>Chapter 13</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>11/25</td>
+      <td>proj10</td>
+      <td>11/26</td>
+      <td>Files &amp; Exceptions II</td>
+      <td>11/28</td>
+      <td><i><b> Thanksgiving (No Class) </b> </i></td>
+      <td>Chapter 14</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td></td>
+      <td></td>
+      <td>12/03</td>
+      <td>More on Exceptions</td>
+      <td>12/05</td>
+      <td>Computer Organization, <br><b>proj 11</b></td>
+      <td>Chapters 14 &amp; 0</td>
+    </tr>
+      <tr><td>16</td>
+      <td></td>
+      <td></td>
+      <td>12/10</td>
+      <td><i><b>Final Exam</b></i></td>
+      </tr></tbody>
+  </table>
+</div>

@@ -1,0 +1,20 @@
+<%inherit file="../../base.html" />
+
+<h2>Bulk User Add</h2>
+<small>Users should be entered 1 per line with the following format: <br/>
+  <span class="mono">NetID, Last Name, First Name[, Temporary password]</span></small>
+<form method="POST" class="form">
+  <% cl = "error" if len(errors) > 0 else "" %>
+  <textarea class="big center mono ${cl}" name="users" tabstop="1">
+  %for e in errors:
+${e}
+  %endfor
+</textarea>
+  <input type="submit">
+</form>
+
+<script>
+$(function() {
+  $("textarea[name=users]").focus();
+});
+</script>

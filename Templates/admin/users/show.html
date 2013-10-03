@@ -2,3 +2,26 @@
 
 <a href="/admin/users/show">All users</a>
 <h2>${user["LastName"]}, ${user["FirstName"]}</h2>
+
+<table class="table">
+  <thead>
+    <th>Member of</th>
+    <th>Role</th>
+    <th>Section</th>
+  </thead>
+% for r in user["Roles"]:
+  <tr>
+    <td>${"{} - {}".format(r["Semester"]["Course"], r["Semester"]["Name"])}</td>
+    <td>${r["UserType"].capitalize()}</td>
+    <td>${r["Section"]}</td>
+  </tr>
+%endfor
+</table>
+
+<form action="../passwordreset" method="POST" class="form">
+  <h4>Reset password</h4>
+  <input type="hidden" name="ID" value="${user["ID"]}">
+  <input type="password" name="pw">
+  <input type="password" name="pwConf">
+  <input type="submit" value="Reset Password">
+</form>

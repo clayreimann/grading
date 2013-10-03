@@ -1,0 +1,23 @@
+<%inherit file="../base.html" />
+
+% if user == Undefined:
+  <form method="POST" class="form form-login">
+    <h2>Sign in:</h2>
+    ${parent.listErrors(errors)}
+    <label>Username</label>
+    <% un = username if username != None else "" %>
+    <input type="text" name="username" value="${un}">
+
+    <label>Password</label>
+    <input type="password" name="password">
+    <input type="submit" value="Log in">
+  </form>
+% else:
+  <p>Hello ${user['name']}!</p>
+% endif
+
+<script>
+  $(function() {
+    $("input[name=username]").focus();
+  })
+</script>

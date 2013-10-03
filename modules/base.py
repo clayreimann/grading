@@ -10,19 +10,14 @@ class Base:
   """Define a base class for all pages"""
   def __init__(self, tmpl_lookup):
     self.tmpl_lookup = tmpl_lookup
-    self.page_title = "Default Page Title"
+    self.page_title = "MSU Grading System"
 
   def render(self, template_name, **kwargs):
     t = self.tmpl_lookup.get_template(template_name)
-    u = current_user()
-    kwargs["_logged_in"] = False
+    kwargs["_user"] = current_user()
+    kwargs["_request"] = cherrypy.request
+    kwargs["_session"] = cherrypy.session
+    kwargs["_active"] = cherrypy.request.path_info.split("/")[1]
     if "page_title" not in kwargs:
       kwargs["page_title"] = self.page_title
-    if u:
-      kwargs["_logged_in"] = True
-      kwargs["_user"] = u
     return t.render(**kwargs)
-
-  # @cherrypy.expose
-  # def default(self, *URI, **params):
-  #   return self.render("404.html", URI=URI, params=params)

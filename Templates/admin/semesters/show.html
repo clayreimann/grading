@@ -1,0 +1,36 @@
+<%inherit file="../../base.html"/>
+
+% for c in semester["Categories"]:
+  <h3>${c["Name"]}</h3>
+    % for a in c["Assignments"]:
+      <div class="assignment">
+        <h4>${a["Name"]} <small>${a["Points"]} pts</small></h4>
+        <p>${a["Summary"]}</p>
+      </div>
+    % endfor
+    <a href="/admin/assignments/add" class="add" data-sem="${semester["ID"]}" data-cat="${c["ID"]}">Add an assignment</a>
+% endfor
+
+<form class="form-inline" method="POST">
+  ${parent.listErrors(errors)}
+  <label>New Category:</label>
+  <input type="text" name="cat_name" value="">
+  <input type="submit" value="Add Category">
+</form>
+
+<script>
+$(function() {
+  $("a.add").bind('click', function(e) {
+    var url, sem, cat;
+    url = this.href;
+    sem = $(this).data("sem");
+    cat = $(this).data("cat");
+
+    // console.log("Post to: "+url+JSON.stringify({sem: sem, cat: cat}));
+    post_to_url(url, {sem: sem, cat: cat});
+
+    e.preventDefault();
+    return false;
+  })
+})
+</script>

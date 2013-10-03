@@ -1,0 +1,25 @@
+<%inherit file="../../base.html" />
+
+<table class="table">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>NetID</th>
+    <th>Section</th>
+    <th>Role</th>
+    <th colspan="2" style="text-align:center;">Actions</th>
+  </tr>
+</thead>
+<tbody>
+  %for r in roles:
+    <tr>
+      <td>${r["LastName"]}, ${r["FirstName"]}</td>
+      <td>${r["NetID"]}</td>
+      <td>${r["Section"]}</td>
+      <td>${r["UserType"].capitalize()}</td>
+      <td><a href="../modify/#">Modify</a></td>
+      <td><a href="../delete/#">Delete</a></td>
+    </tr>
+  %endfor
+</tbody>
+</table>

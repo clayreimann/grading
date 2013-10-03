@@ -1,0 +1,21 @@
+<%inherit file="base.html" />
+
+<p>Dashboard of site.</p>
+<pre>
+User:    ${_user}
+Base:    ${_request.base}
+Req:     ${_request.path_info} (${_request.method})
+Cookie:  ${_request.cookie}
+
+URI:     ${uri}
+Params:
+% for p in params:
+  ${p} = ${params[p]}
+% endfor
+
+Headers:
+% for h in _request.headers:
+  ${h} = ${_request.headers[h]}
+% endfor
+
+</pre>

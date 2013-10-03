@@ -5,9 +5,14 @@
 # Import CherryPy global namespace
 import cherrypy
 
+from . import auth
+
 from .base import Base
-from .users import Users
-from .courses import Courses
+from .admin_protected.users import Users
+from .admin_protected.roles import Roles
+from .admin_protected.courses import Courses
+from .admin_protected.semesters import Semesters
+from .admin_protected.assignments import Assignments
 
 class Admin(Base):
   """
@@ -16,29 +21,30 @@ class Admin(Base):
       /courses   - all of the course management stuff
       /semesters - all of the assignment management stuff
   """
+  _cp_config = {
+    'auth.restrict.require': [auth.has_admin_privileges()]
+  }
+
   def __init__(self, tmpl_lookup):
     super(Admin, self).__init__(tmpl_lookup)
     self.page_title = "Admin"
+    self.roles = Roles(tmpl_lookup)
     self.users = Users(tmpl_lookup)
     self.courses = Courses(tmpl_lookup)
+    self.semesters = Semesters(tmpl_lookup)
+    self.assignments = Assignments(tmpl_lookup)
 
   @cherrypy.expose
   def index(self):
     return self.render("admin/index.html")
 
   @cherrypy.expose
-  def assignments(self, method):
-    if method == "add":
-      return self.render("admin/add_assignment.html", page_title="New Assignment")
-    elif method == "show":
-      raise cherrypy.HTTPRedirect("/admin")
-    else:
-      raise cherrypy.HTTPRedirect("/admin/assignments/show")
-
-  @cherrypy.expose
-  def add(self, method, **params):
-    if method == "assignment":
-      return self.params_to_html(method, **params)
+  def form(self, **params):
+    """
+      A playground for experimenting with forms
+    """
+    params = self.roles.parse_dicts(**params)
+    return self.render("admin/form.html", params=params);
 
   def params_to_html(self, method, **params):
     html  = "<html><body style='padding:20px 30px;'><h2>"+method+"</h2><pre>"

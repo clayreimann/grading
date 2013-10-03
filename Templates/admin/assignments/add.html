@@ -1,0 +1,142 @@
+<%inherit file="../../base.html" />
+<!-- This script tag stores info for the categories so we can pull it out later -->
+<script>
+  var CATS = [
+    % for c in categories:
+    {
+      ID: '${c["ID"]}',
+      Name: '${c["Name"]}',
+      SemesterID: '${c["SemesterID"]}'
+    },
+    % endfor
+  ];
+</script>
+
+<form method="POST" class="form">
+  <h2>New Assignment</h2>
+  ${parent.listErrors(errors)}
+  <label>Semester</label>
+  <select name="sem">
+    <% sem = params["sem"] if "sem" in params else "" %>
+    % for s in semesters:
+      <% selected = "selected" if s["ID"] == sem else "" %>
+      <option value="${s["ID"]}" ${selected}>${s["CourseNumber"]} | ${s["Name"]}</option>
+    % endfor
+  </select>
+
+  <label>Category</label>
+  <select name="cat">
+    <option></option>
+  </select>
+
+  <label>Name</label>
+  <% name = params["name"] if "name" in params else "" %>
+  <input type="text" name="name" value="${name}">
+
+  <label>Summary</label>
+  <% summary = params["summary"] if "summary" in params else "" %>
+  <textarea class="wide" name="summary">${summary}</textarea>
+
+  <label>Description</label>
+  <% description = params["description"] if "description" in params else "" %>
+  <textarea class="big" name="description">${description}</textarea>
+
+  <label>Due Date</label>
+  <% due = params["due"] if "due" in params else "" %>
+  <input type="text" name="due" class="date" value="${due}">
+
+  <label>Release Date</label>
+  <small>When the assignment becomes visible</small>
+  <% release = params["release"] if "release" in params else "" %>
+  <input type="text" name="release" class="date" value="${release}">
+
+  <label>Points</label>
+  <% points = params["points"] if "points" in params else "" %>
+  <input type="text" name="points" value="${points}">
+
+  <input type="submit" value="Create">
+</form>
+
+<script>
+function pad(value, size) {
+  size = size || 2;
+
+  if(value.length == size) {
+    return value;
+  }
+
+  if(size == 4) {
+    return "20"+value;
+  }
+
+  while(value.length < size) {
+    value = "0"+value;
+  }
+
+  return value;
+}
+$(function() {
+  $("select[name=sem]").on('change', function() {
+    var i, c, cats, val, html;
+
+    val  = this.value;
+    html = "<option></option>"
+    cats = [];
+
+    for(i = 0; i < CATS.length; i++) {
+      c = CATS[i]
+      if(c.SemesterID === val) {
+        cats.push(c);
+      }
+    }
+
+    if(cats.length == 0) {
+      html = "<option>No categories for this semester</option>";
+    } else {
+      for(i = 0; i < cats.length; i++) {
+        html += "<option value='"+cats[i].ID+"'>"+cats[i].Name+"</option>";
+      }
+    }
+
+    $("select[name=cat]").html(html);
+  });
+
+  % if "sem" in params:
+  $("select[name=sem]").val('${params["sem"]}');
+  % endif
+
+  $("select[name=sem]").change();
+
+  % if "cat" in params:
+  $("select[name=cat]").val('${params["cat"]}');
+  % endif
+
+  $("input.date").bind('blur', function(e) {
+    var val = this.value;
+
+    console.log(val);
+    if(typeof val == "string") {
+
+      match = val.match(/(\d\d?)([\/\-])(\d\d?)\2(\d\d(\d\d)?) (\d\d?):(\d\d)/)
+      if(match != null) {
+        console.log("matched m/d/y");
+        $(this).css("color", "black");
+        val = pad(match[4], 4)+"-"+pad(match[1])+"-"+pad(match[3])+" "+pad(match[6])+":"+pad(match[7])
+        this.value = val;
+        return;
+      }
+
+      match = val.match(/(\d\d\d\d)([\/\-])(\d\d?)\2(\d\d?) (\d\d?):(\d\d)/)
+      if(match != null) {
+        console.log("matched y/m/d");
+        $(this).css("color", "black");
+        val = pad(match[1], 4)+"-"+pad(match[3])+"-"+pad(match[4])+" "+pad(match[5])+":"+pad(match[6])
+        this.value = val;
+        return;
+      }
+    }
+
+    $(this).css("color", "red");
+  });
+});
+</script>

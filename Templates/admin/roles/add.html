@@ -1,0 +1,100 @@
+<%page args="sem_sel='', usr_sel=''"/>
+<%inherit file="../../base.html"/>
+
+<%
+  sem_sel = "<select data-prop='Course'><option></option>"
+  for s in semesters:
+    sem_sel += "<option value='{}'>{} | {}</option>".format(s["ID"], s["CourseNumber"], s["Name"])
+  sem_sel += "</select>"
+
+  usr_sel = "<select class='user'><option></option>"
+  for u in users:
+    usr_sel += "<option value='{}'>{} | {}, {}</option>".format(u["ID"], u["NetID"],
+                                                                u["LastName"], u["FirstName"])
+  usr_sel += "</select>"
+%>
+
+<form method="POST" class="form">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>NetID</th>
+        <th>Section</th>
+        <th>Course</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody id="roles">
+        <tr>
+          <td>${usr_sel}</td>
+          <td><input type="text" name="" data-prop="Section"></td>
+          <td>${sem_sel}</td>
+          <td><select name="" data-prop="Role">
+            <option></option>
+            <option value="STUDENT">Student</option>
+            <option value="TA">TA</option>
+            <option value="PROF">Prof</option>
+            <option value="ADMIN">Admin</option>
+          </select></td>
+        </tr>
+      <tr><td><a href="#" id="add">Add a role</a></td></tr>
+    </tbody>
+  </table>
+  <input type="submit" value="Add Roles">
+</form>
+
+<%block name="scripts">
+<script>
+var USERS = [
+  %for u in users:
+  {
+    'ID': '${u["ID"]}',
+    'NetID': '${u["NetID"]}'
+  },
+  %endfor
+];
+
+function updateInputNames() {
+  var name = $(this).val(),
+      inputs = $(this).parent().siblings().children();
+  inputs.each(function(i, e, l) {
+    prop = $(e).data('prop');
+    $(e).attr('name', name+'['+prop+']');
+  });
+}
+
+$(function() {
+  $('#add').bind('click', function(e) {
+    var row;
+    row  = '<tr><td><select class="user"><option></option>';
+    %for u in users:
+    row += '${"<option value=\"{}\">{} | {}, {}</option>".format(u["ID"], u["NetID"], u["LastName"], u["FirstName"])}';
+    %endfor
+    row += '</select></td>';
+    row += '<td><input type="text" name="" data-prop="Section"></td>';
+    row += '<td><select data-prop="Course"><option></option>';
+    %for s in semesters:
+    row += '${"<option value=\"{}\">{} | {}</option>".format(s["ID"], s["CourseNumber"], s["Name"])}';
+    %endfor
+    row += '</select></td>';
+    row += '<td><select name="" data-prop="Role">';
+    row += '<option></option>';
+    row += '<option value="STUDENT">Student</option>';
+    row += '<option value="TA">TA</option>';
+    row += '<option value="PROF">Prof</option>';
+    row += '<option value="ADMIN">Admin</option>';
+    row += '</tr>';
+
+    $(this).parent().parent()
+      .before(row);
+
+    $('.user').bind('change', updateInputNames);
+
+    e.preventDefault();
+    return false;
+  });
+
+  $('.user').bind('change', updateInputNames);
+});
+</script>
+</%block>

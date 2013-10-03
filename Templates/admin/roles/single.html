@@ -1,0 +1,33 @@
+<%inherit file="../../base.html"/>
+
+<form method="POST" class="form">
+  ${parent.listErrors(errors)}
+
+  <label>User</label>
+  <select name="user">
+    <option></option>
+  %for u in users:
+    <option value="${u['ID']}">${u["LastName"]}, ${u["FirstName"]} | ${u["NetID"]}</option>
+  %endfor
+  </select>
+
+  <label>Role</label>
+  <select name="role">
+    <option></option>
+    <option value="STUDENT">Student</option>
+    <option value="TA">TA</option>
+    <option value="PROF">Prof</option>
+    <option value="ADMIN">Admin</option>
+  </select>
+
+  <label>Semester</label>
+  <select name="semester">
+    <option></option>
+  %for s in semesters:
+    <option value="${s['ID']}">${s["CourseNumber"]} | ${s["Name"]}</option>
+  %endfor
+  </select>
+  <label>Section</label>
+  <input type="text" name="section">
+  <input type="submit" value="Add Role">
+</form>
